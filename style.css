@@ -4,10 +4,27 @@
     box-sizing: border-box;
 }
 
+h1.title {
+    background-color: aquamarine;
+    color: black;
+    padding: 2rem 0;
+    font-size: 3rem;
+}
+
+.p1 {
+    background-color: cadetblue;
+    border-radius: 8px 0 0 8px;
+}
+
+.p2 {
+    background-color: coral;
+    border-radius: 0 8px 8px 0;
+}
+
 #gameboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 5px;
+    grid-gap: 8px;
     font-size: 42px;
     text-align: center;
     width: 90%;
@@ -26,6 +43,9 @@
 
 .tictac-box-content {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     height: 100%;
@@ -34,8 +54,27 @@
     font-size: 100%;
 }
 
+.tictac-box-content img {
+    width: 50%;
+}
+
+#new-game-btn {
+    background-color: aquamarine;
+    width: 50%;
+    font-weight: 600;
+}
 
 /* Utils */
 .invisible {
     display: none;
+}
+
+@media only screen and (max-width: 355px) {
+    .p1 {
+        border-radius: 8px;
+    }
+    
+    .p2 {
+        border-radius: 8px;
+    }
 }

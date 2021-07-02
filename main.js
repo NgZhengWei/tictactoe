@@ -86,7 +86,16 @@ const DisplayController = (
                     let content = document.createElement('div');
                     content.classList.add('tictac-box-content');
                     content.setAttribute('data-position', `${row}${col}`);
-                    content.innerText = board[row][col];
+                    if (board[row][col] === 'O'){
+                        content.innerHTML = '<img class="img-fluid" src="media/cross.svg" alt="cross">'
+                    }
+                    else if (board[row][col] === 'X'){
+                        content.innerHTML = '<img class="img-fluid" src="media/circle.svg" alt="circle">'
+                    }
+                    else {
+                        content.innerText = board[row][col];
+                    }
+                    
                     box.appendChild(content);
 
                     boardDisplay.appendChild(box);
@@ -98,17 +107,38 @@ const DisplayController = (
         const displayScoreboard = () => {
             stats = FlowController.getStats();
             p1Scoreboard = document.querySelector('.p1');
-            p1Scoreboard.innerHTML = `<input id='p1' class='text-center py-1 fs-5 m-3' type='text' value='Player 1'>
-                                        <p>Win: ${stats.p1.win}</p>
-                                        <p>Loss: ${stats.p1.loss}</p>
-                                        <p>Draw: ${stats.p1.draw}</p>`;
+
+            p1Scoreboard.innerHTML = `<table class='table'>
+                                        <tr>
+                                            <th scope="row">Player</th>
+                                            <th scope="col">Win</th>
+                                            <th scope="col">Loss</th>
+                                            <th scope="col">Draw</th>
+                                        </tr>
+                                        <tr>
+                                            <td>X</td>
+                                            <td>${stats.p1.win}</td>
+                                            <td>${stats.p1.loss}</td>
+                                            <td>${stats.p1.draw}</td>
+                                        </tr>
+                                    </table>`;
 
             p2Scoreboard = document.querySelector('.p2');
-            p2Scoreboard.innerHTML = `<input id='p2' class='text-center py-1 fs-5 m-3' type='text' value='Player 2'>
-                                        <p>Win: ${stats.p2.win}</p>
-                                        <p>Loss: ${stats.p2.loss}</p>
-                                        <p>Draw: ${stats.p2.draw}</p>`;
-        };
+            p2Scoreboard.innerHTML = `<table class='table'>
+                                        <tr>
+                                            <th scope="row">Player</th>
+                                            <th scope="row">Win</th>
+                                            <th scope="row">Loss</th>
+                                            <th scope="row">Draw</th>
+                                        </tr>
+                                        <tr>
+                                            <td>O</td>
+                                            <td>${stats.p2.win}</td>
+                                            <td>${stats.p2.loss}</td>
+                                            <td>${stats.p2.draw}</td>
+                                        </tr>
+                                    </table>`;
+                                    };
 
         return {
             displayBoard,
@@ -185,7 +215,7 @@ const FlowController = (
         }
 
         boxClickHandler = (e) => {
-            if (e.target.innerText === ''){
+            if (e.target.innerHTML === ''){
                 let [row, col] = e.target.getAttribute('data-position').split('');
                 Gameboard.set(parseInt(row), parseInt(col));
                 DisplayController.displayBoard();
